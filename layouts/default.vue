@@ -7,7 +7,7 @@
   useHead({
     title: 'Afrodidact Deployments Map',
     meta: [
-      { name: 'description', content: 'Check out the evolution of our deployments.' }
+      { name: 'description', content: 'Follow the evolution of our deployments.' }
     ]
   })
   </script>
