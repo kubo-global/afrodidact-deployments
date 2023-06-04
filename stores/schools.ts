@@ -27,7 +27,7 @@ export const useSchoolsStore = defineStore({
           numberOfStudents: 3000,
           numberOfClients: 51,
           schoolDescription:
-            "The biggest lower basic school in The Gambia with +/- 3000 pupils. 6 grades, up to 12 classes/grade - 115 teachers. Solar installation installed. Funded by Rotary Grant 2016052 (RC Banjul, RC Beveren-Waas). ",
+            "The biggest lower basic school in The Gambia with +/- 3000 pupils. 6 grades, up to 12 classes/grade - 115 teachers. Solar installation installed. Funded by Rotary Grant 2016052 (RC Banjul, RC Beveren-Waas, ...), Energy Assistance &amp; Intix. ",
           classImage: "bakotehproper.jpg",
         },
         {
@@ -40,7 +40,7 @@ export const useSchoolsStore = defineStore({
           numberOfStudents: 381,
           numberOfClients: 26,
           schoolDescription:
-            "The lower basic school of Albreda is located in the Northbank. It has 381 pupils + 91 toddlers (Early Childhood Development). There are 6 grades with 2 classes/grade, and 12 teachers. Solar installation installed. Funded by Rotary Grant 2016052 (RC Banjul, RC Beveren-Waas).",
+            "The lower basic school of Albreda is located in the Northbank. It has 381 pupils + 91 toddlers (Early Childhood Development). There are 6 grades with 2 classes/grade, and 12 teachers. Solar installation installed. Funded by Rotary Grant 2016052 (RC Banjul, RC Beveren-Waas, ...), Energy Assistance &amp; Intix.",
           classImage: "albreda.jpg",
         },
         {
@@ -53,7 +53,7 @@ export const useSchoolsStore = defineStore({
           numberOfStudents: 406,
           numberOfClients: 26,
           schoolDescription:
-            "406 pupils + 36 toddlers ECD - 6 grades, 2 classes/grade (gr2:3) - 13 teachers. Solar installation installed. Funded by Rotary Grant 2016052 (RC Banjul, RC Beveren-Waas).",
+            "406 pupils + 36 toddlers ECD - 6 grades, 2 classes/grade (gr2:3) - 13 teachers. Solar installation installed. Funded by Rotary Grant 2016052 (RC Banjul, RC Beveren-Waas, ...), Energy Assistance &amp; Intix..",
           classImage: "njabakunda.jpg",
         },
         // ... other schools
