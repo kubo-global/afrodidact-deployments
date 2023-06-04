@@ -15,7 +15,7 @@
         General description:<br /><span id="school-description">{{ schoolDescription }}</span>
       </p>
     </div>
-    <Image v-if="classImage" :src="`img/${ classImage }`" />
+    <Image v-if="classImage" :src="`/img/${ classImage }`" />
     <button
       class="px-2 py-1 underline"
       @click="handleCloseClick()"

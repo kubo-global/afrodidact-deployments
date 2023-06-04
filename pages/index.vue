@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <div class="py-2 px-4 md:py-4 md:px-6 flex-1 fixed z-10 bg-white rounded-r-xl rounded-l-none">
-      <img id="logo" src="img/logo.png" alt="Logo" class="h-12 md:h-16" 
+      <img id="logo" src="/img/logo.png" alt="Logo" class="h-12 md:h-16" 
         @click="handleOverviewClick()" />
       <h1 class="text-lg md:text-2xl text-afrodidactDark font-semibold">
         Deployments Map
