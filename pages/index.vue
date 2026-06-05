@@ -4,7 +4,7 @@
       class="z-20 flex items-center justify-between gap-4 border-b border-afrodidactDark/10 bg-white px-4 py-3 shadow-sm md:px-6"
     >
       <div
-        class="flex cursor-pointer items-center gap-3"
+        class="flex flex-none cursor-pointer items-center gap-3"
         @click="handleOverviewClick()"
       >
         <img id="logo" src="/img/logo.png" alt="Afrodidact logo" class="h-10 md:h-12" />
@@ -18,6 +18,7 @@
         </div>
       </div>
       <Menu
+        class="min-w-0"
         @overview-click="handleOverviewClick"
         @school-click="handleSchoolClick"
       />

@@ -1,8 +1,11 @@
 <template>
   <div
-    class="flex flex-col gap-5 overflow-y-auto bg-afrodidactYellow p-6 text-afrodidactDark duration-300"
+    class="flex flex-col gap-5 overflow-y-auto rounded-t-2xl bg-afrodidactYellow p-6 text-afrodidactDark shadow-[0_-8px_24px_rgba(12,8,34,0.12)] duration-300 md:rounded-none md:shadow-none"
     style="order: 9999"
   >
+    <!-- Mobile drag-handle affordance -->
+    <div class="mx-auto -mt-2 h-1.5 w-12 flex-none rounded-full bg-afrodidactDark/20 md:hidden"></div>
+
     <div class="flex items-start justify-between gap-3">
       <h2 id="school-name" class="text-2xl font-bold leading-tight">
         {{ schoolName }}

@@ -40,12 +40,12 @@
       </li>
     </ul>
 
-    <!-- Desktop: inline pills -->
-    <ul class="hidden items-center gap-2 md:flex">
+    <!-- Desktop: inline pills (scroll horizontally if they outgrow the bar) -->
+    <ul class="no-scrollbar hidden max-w-full items-center gap-2 overflow-x-auto md:flex">
       <li
         key="overview"
         @click="handleOverviewClick()"
-        class="cursor-pointer rounded-full px-4 py-2 text-sm font-medium transition-colors"
+        class="flex-none cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors"
         :class="active === null
           ? 'bg-afrodidactDark text-white'
           : 'bg-afrodidactDark/5 text-afrodidactDark hover:bg-afrodidactDark/10'"
@@ -56,7 +56,7 @@
         v-for="school in schools"
         :key="school.name"
         @click="handleSchoolClick(school)"
-        class="cursor-pointer rounded-full px-4 py-2 text-sm font-medium transition-colors"
+        class="flex-none cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors"
         :class="active === school.name
           ? 'bg-afrodidactDark text-white'
           : 'bg-afrodidactDark/5 text-afrodidactDark hover:bg-afrodidactDark/10'"
