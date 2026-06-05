@@ -1,0 +1,5 @@
+# Pin Node 22 — sanity@5 requires Node ">=20.19 <22 || >=22.12".
+# Only sets the build environment; build command and publish dir stay as
+# auto-detected by Netlify for Nuxt.
+[build.environment]
+  NODE_VERSION = "22"
