@@ -1,27 +1,54 @@
 <template>
   <div
-    class="overflow-y-auto bg-afrodidactYellow text-afrodidactDark p-4 duration-300 flex-col"
+    class="flex flex-col gap-5 overflow-y-auto bg-afrodidactYellow p-6 text-afrodidactDark duration-300"
     style="order: 9999"
   >
-    <div class="flex-1">
-      <h2 id="school-name" class="text-2xl font-bold mb-4">{{ schoolName }}</h2>
-      <p class="text-base mb-2">
-        <span id="school-number-of-students">{{ numberOfStudents }}</span> pupils
-      </p>
-      <p class="text-base mb-2">
-        <span id="school-number-of-clients">{{ numberOfClients }}</span> KUBO X installed
-      </p>
-      <p class="text-base">
-        General description:<br /><span id="school-description">{{ schoolDescription }}</span>
+    <div class="flex items-start justify-between gap-3">
+      <h2 id="school-name" class="text-2xl font-bold leading-tight">
+        {{ schoolName }}
+      </h2>
+      <button
+        aria-label="Close"
+        class="-mr-1 -mt-1 flex h-9 w-9 flex-none items-center justify-center rounded-full text-2xl leading-none text-afrodidactDark/70 transition-colors hover:bg-afrodidactDark/10 hover:text-afrodidactDark"
+        @click="handleCloseClick()"
+      >
+        &times;
+      </button>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3">
+      <div class="rounded-xl bg-afrodidactDark/5 p-3">
+        <div id="school-number-of-students" class="text-2xl font-bold">
+          {{ numberOfStudents }}
+        </div>
+        <div class="text-xs font-medium uppercase tracking-wide text-afrodidactDark/60">
+          Pupils
+        </div>
+      </div>
+      <div class="rounded-xl bg-afrodidactDark/5 p-3">
+        <div id="school-number-of-clients" class="text-2xl font-bold">
+          {{ numberOfClients }}
+        </div>
+        <div class="text-xs font-medium uppercase tracking-wide text-afrodidactDark/60">
+          KUBO X installed
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="mb-1 text-xs font-semibold uppercase tracking-wide text-afrodidactDark/60">
+        Description
+      </h3>
+      <p id="school-description" class="text-sm leading-relaxed">
+        {{ schoolDescription }}
       </p>
     </div>
-    <Image v-if="classImage" :src="`/img/${ classImage }`" />
-    <button
-      class="px-2 py-1 underline"
-      @click="handleCloseClick()"
-    >
-      Close
-    </button>
+
+    <Image
+      v-if="classImage"
+      :src="`/img/${classImage}`"
+      class="mt-auto"
+    />
   </div>
 </template>
 

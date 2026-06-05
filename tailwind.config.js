@@ -10,6 +10,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Work Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
       colors: {
         afrodidactDark: '#0c0822', 
         afrodidactYellow: '#ffcd31', 

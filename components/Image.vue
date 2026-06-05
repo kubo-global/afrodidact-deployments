@@ -1,8 +1,12 @@
 <template>
     <div>
       <!-- Display image thumbnail -->
-      <img :src="src" @click="openFullscreen">
-  
+      <img
+        :src="src"
+        @click="openFullscreen"
+        class="w-full cursor-zoom-in rounded-xl object-cover shadow-sm transition-transform duration-200 hover:scale-[1.02]"
+      >
+
       <!-- Fullscreen image viewer -->
         <div v-show="fullscreenVisible" class="fullscreen fixed top-0 left-0 bottom-0 right-0 z-50" @click="closeFullscreen">
             <img :src="src" class="fullscreen-img">
