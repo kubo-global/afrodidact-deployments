@@ -1,39 +1,44 @@
 <template>
-  <div class="w-full">
-    <div class="py-2 px-4 md:py-4 md:px-6 flex-1 fixed z-10 bg-white rounded-r-xl rounded-l-none">
-      <img id="logo" src="/img/logo.png" alt="Logo" class="h-12 md:h-16" 
-        @click="handleOverviewClick()" />
-      <h1 class="text-lg md:text-2xl text-afrodidactDark font-semibold">
-        Deployments Map
-      </h1>
-    </div>
-    <div class=' h-screen flex flex-col'>
-    <Menu
-      class="text-afrodidactDark w-full flex items-end bg-white p-4 h-30"
-      @overview-click="handleOverviewClick"
-      @school-click="handleSchoolClick"
-    />
-    <div class="flex flex-col md:flex-row h-screen flex-1">
-      <Map ref="mapComponent" class='w-full h-full' 
-      :schools="schools"
-      @school-click="handleSchoolClick"
+  <div class="flex h-screen flex-col">
+    <header
+      class="z-20 flex items-center justify-between gap-4 border-b border-afrodidactDark/10 bg-white px-4 py-3 shadow-sm md:px-6"
+    >
+      <div
+        class="flex flex-none cursor-pointer items-center gap-3"
+        @click="handleOverviewClick()"
+      >
+        <img id="logo" src="/img/logo.png" alt="Afrodidact logo" class="h-10 md:h-12" />
+        <div class="leading-tight">
+          <h1 class="text-base font-semibold text-afrodidactDark md:text-xl">
+            Deployments Map
+          </h1>
+          <p class="hidden text-xs text-afrodidactDark/60 md:block">
+            Follow the evolution of our deployments
+          </p>
+        </div>
+      </div>
+      <Menu
+        class="min-w-0"
+        @overview-click="handleOverviewClick"
+        @school-click="handleSchoolClick"
+      />
+    </header>
+
+    <div class="flex min-h-0 flex-1 flex-col md:flex-row">
+      <Map
+        ref="mapComponent"
+        class="h-full w-full"
+        :schools="schools"
+        @school-click="handleSchoolClick"
       />
       <Sidebar
         @close-sidebar="handleCloseSidebar"
         ref="sidebarComponent"
-        class="hidden h-2/3 resize-y w-full md:h-full md:w-1/3 z-10"
+        class="z-10 hidden h-2/3 w-full resize-y md:h-full md:w-1/3 md:max-w-md"
       />
-    </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-body {
-  height: 100vh;
-  width: 100%;
-}
-</style>
   
 <script setup>
 import { useSchoolsStore } from "~/stores/schools";
@@ -41,6 +46,7 @@ import { storeToRefs } from "pinia";
 import { ref } from "vue";
 
 const schoolsStore = useSchoolsStore();
+await schoolsStore.fetchSchools();
 const { schools } = storeToRefs(schoolsStore);
 const mapComponent = ref(null);
 const sidebarComponent = ref(null);

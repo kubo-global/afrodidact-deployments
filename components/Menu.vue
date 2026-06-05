@@ -1,45 +1,54 @@
 <template>
-  <div class='flex flex-col'>
-<div class="flex space-x-2">
-
-    <button @click="toggleMenu" class="md:hidden text-xl font-semibold">
-      <span class='text-3xl'>&#9776;</span>
+  <nav>
+    <!-- Mobile: hamburger trigger -->
+    <button
+      @click="toggleMenu"
+      aria-label="Open menu"
+      class="rounded-lg p-2 text-afrodidactDark transition-colors hover:bg-afrodidactDark/5 md:hidden"
+    >
+      <span class="text-2xl leading-none">&#9776;</span>
     </button>
-  </div>
 
+    <!-- Mobile: full-screen overlay -->
     <ul
       v-if="isMenuOpen"
-      class="flex flex-col items-start fixed top-0 left-0 bottom-0 right-0 bg-afrodidactYellow font-semibold text-center z-50 px-8" 
+      class="fixed inset-0 z-50 flex flex-col bg-afrodidactYellow px-6 pb-8 pt-4 text-afrodidactDark"
     >
-      <li @click="toggleMenu" class=" py-4 cursor-pointer text-right w-full text-4xl ">
+      <li
+        @click="toggleMenu"
+        aria-label="Close menu"
+        class="w-full cursor-pointer self-end py-2 text-right text-4xl leading-none"
+      >
         &times;
       </li>
       <li
         key="overview"
         @click="handleOverviewClick()"
-        class="cursor-pointer py-4 px-4 hover:bg-gray-100 border-b-4 border-afrodidactDark border-opacity-30 border-dotted w-full"
+        class="w-full cursor-pointer border-b border-afrodidactDark/15 py-4 text-lg font-semibold transition-colors hover:text-afrodidactRed"
+        :class="{ 'text-afrodidactRed': active === null }"
       >
         Overview
       </li>
-
       <li
         v-for="school in schools"
         :key="school.name"
         @click="handleSchoolClick(school)"
-        class="cursor-pointer py-4 px-4 hover:bg-gray-100 border-b-4 border-afrodidactDark border-opacity-30 border-dotted w-full"
+        class="w-full cursor-pointer border-b border-afrodidactDark/15 py-4 text-lg font-medium transition-colors hover:text-afrodidactRed"
+        :class="{ 'text-afrodidactRed': active === school.name }"
       >
         {{ school.name }}
       </li>
     </ul>
 
-
-    <ul
-      class="hidden md:flex space-x-2"
-    >
+    <!-- Desktop: inline pills (scroll horizontally if they outgrow the bar) -->
+    <ul class="no-scrollbar hidden max-w-full items-center gap-2 overflow-x-auto md:flex">
       <li
         key="overview"
         @click="handleOverviewClick()"
-        class="cursor-pointer py-2 px-4 bg-afrodidactDark text-white rounded"
+        class="flex-none cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors"
+        :class="active === null
+          ? 'bg-afrodidactDark text-white'
+          : 'bg-afrodidactDark/5 text-afrodidactDark hover:bg-afrodidactDark/10'"
       >
         Overview
       </li>
@@ -47,12 +56,15 @@
         v-for="school in schools"
         :key="school.name"
         @click="handleSchoolClick(school)"
-        class="cursor-pointer py-2 px-4 bg-afrodidactDark text-white rounded"
+        class="flex-none cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors"
+        :class="active === school.name
+          ? 'bg-afrodidactDark text-white'
+          : 'bg-afrodidactDark/5 text-afrodidactDark hover:bg-afrodidactDark/10'"
       >
         {{ school.name }}
       </li>
     </ul>
-  </div>
+  </nav>
 </template>
   
   <script>
@@ -65,6 +77,7 @@ export default defineComponent({
     const schoolsStore = useSchoolsStore();
     const { schools } = storeToRefs(schoolsStore);
     const isMenuOpen = ref(false);
+    const active = ref(null);
     const instance = getCurrentInstance();
 
     const toggleMenu = () => {
@@ -72,17 +85,19 @@ export default defineComponent({
     };
 
     const handleOverviewClick = () => {
+      active.value = null;
       instance.emit("overviewClick");
       isMenuOpen.value = false;
     };
 
     const handleSchoolClick = (school) => {
-      console.log(school);
+      active.value = school.name;
       instance.emit("schoolClick", school);
       isMenuOpen.value = false;
     };
 
     return {
+      active,
       handleOverviewClick,
       handleSchoolClick,
       isMenuOpen,
