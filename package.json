@@ -6,7 +6,10 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "studio:dev": "sanity dev",
+    "studio:deploy": "sanity deploy",
+    "import:schools": "node scripts/import-schools.mjs"
   },
   "devDependencies": {
     "@types/mapbox-gl": "^2.7.11",
@@ -18,8 +21,14 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.11",
+    "@sanity/client": "^7.22.1",
+    "@sanity/vision": "^5.30.0",
     "mapbox-gl": "^2.15.0",
     "pinia": "^2.1.3",
-    "portal-vue": "^3.0.0"
+    "portal-vue": "^3.0.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "sanity": "^5.30.0",
+    "styled-components": "^6.4.2"
   }
 }

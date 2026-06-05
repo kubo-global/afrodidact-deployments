@@ -46,6 +46,7 @@ import { storeToRefs } from "pinia";
 import { ref } from "vue";
 
 const schoolsStore = useSchoolsStore();
+await schoolsStore.fetchSchools();
 const { schools } = storeToRefs(schoolsStore);
 const mapComponent = ref(null);
 const sidebarComponent = ref(null);

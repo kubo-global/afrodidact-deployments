@@ -49,7 +49,7 @@
 
     <Image
       v-if="classImage"
-      :src="`/img/${classImage}`"
+      :src="classImage"
       class="mt-auto"
     />
   </div>
