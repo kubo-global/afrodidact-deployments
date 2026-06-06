@@ -7,10 +7,13 @@
         class="w-full cursor-zoom-in rounded-xl object-cover shadow-sm transition-transform duration-200 hover:scale-[1.02]"
       >
 
-      <!-- Fullscreen image viewer -->
-        <div v-show="fullscreenVisible" class="fullscreen fixed top-0 left-0 bottom-0 right-0 z-50" @click="closeFullscreen">
+      <!-- Fullscreen image viewer — teleported to <body> so it escapes the
+           sidebar's stacking context and covers the header. -->
+      <Teleport to="body">
+        <div v-show="fullscreenVisible" class="fullscreen" @click="closeFullscreen">
             <img :src="src" class="fullscreen-img">
         </div>
+      </Teleport>
     </div>
   </template>
   
@@ -49,13 +52,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+    padding: 2rem;
+    background: rgba(12, 8, 34, 0.92); /* afrodidactDark, near-opaque */
     z-index: 9999;
+    cursor: zoom-out;
   }
-  
+
   .fullscreen-img {
-    max-width: 90%;
-    max-height: 90%;
+    max-width: 95%;
+    max-height: 95%;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
   }
   </style>
   
