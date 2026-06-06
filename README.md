@@ -14,41 +14,34 @@ Styling follows the afrodidact.org brand (Work Sans, brand colours in `tailwind.
 ## Sanity backend
 
 School content (name, location, pupil/KUBO counts, description, class photo) is
-managed in [Sanity](https://www.sanity.io). Until a project is connected the app
-falls back to a bundled list in `stores/schools.ts`, so it always renders.
+managed in [Sanity](https://www.sanity.io). The project is **already set up**
+(project `90d8817c`, dataset `production`, with the four schools imported). If
+Sanity is ever unreachable the app falls back to the bundled list in
+`stores/schools.ts`, so it always renders.
 
 The editing **Studio is embedded at `/studio`** (e.g. http://localhost:3000/studio).
 
-### One-time setup
+### Editing content
 
-1. **Create the project** (needs a Sanity account — `npx sanity login` first):
+1. Open `/studio` while logged into Sanity (you must be a member of the project).
+2. First visit only: Sanity shows **"Connect this studio to your project"** —
+   click **Register this studio** (production / editor-facing) or **Add development
+   host** (localhost). One-time per host.
+3. Edit schools; changes appear on the map on next load.
 
-   ```bash
-   npx sanity@latest init --bare      # creates the project + dataset, prints a projectId
-   ```
+The `projectId` is public and defaulted in `nuxt.config.ts`, so no env config is
+needed to *read* content. To point at a different project/dataset, set
+`SANITY_STUDIO_PROJECT_ID` / `SANITY_STUDIO_DATASET` (shared with the Sanity CLI;
+see `.env.example`).
 
-   Or create it in the UI at https://www.sanity.io/manage and copy the project ID.
+### Re-importing / seeding (already done once)
 
-2. **Configure env** — copy `.env.example` to `.env` and fill in:
+`scripts/import-schools.mjs` uploads the four bundled photos and creates the
+`school` docs. Needs an Editor token (Manage → API → Tokens):
 
-   ```bash
-   SANITY_STUDIO_PROJECT_ID=your_project_id
-   SANITY_STUDIO_DATASET=production
-   ```
-
-   These are shared by both the Nuxt app and the Sanity CLI.
-
-3. **Allow the Studio origin** in https://www.sanity.io/manage → API → CORS origins:
-   add `http://localhost:3000` and your production URL (credentials allowed).
-
-4. **Import the existing schools** (uploads the four photos + creates the docs).
-   Create an Editor token at Manage → API → Tokens, then:
-
-   ```bash
-   SANITY_API_WRITE_TOKEN=sk... npm run import:schools
-   ```
-
-5. **Restart** `npm run dev`. The map now reads from Sanity; edit content at `/studio`.
+```bash
+SANITY_API_WRITE_TOKEN=sk... npm run import:schools
+```
 
 ### Schema
 

@@ -8,7 +8,9 @@ export default defineNuxtConfig({
         // Left empty until the project is created — the app falls back to the
         // bundled school list in that case.
         sanity: {
-          projectId: process.env.SANITY_STUDIO_PROJECT_ID || '',
+          // projectId is public (ships in the client bundle); the default
+          // makes production work with zero config. Override via env if needed.
+          projectId: process.env.SANITY_STUDIO_PROJECT_ID || '90d8817c',
           dataset: process.env.SANITY_STUDIO_DATASET || 'production',
         },
       },
