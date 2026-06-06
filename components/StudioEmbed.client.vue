@@ -16,7 +16,7 @@ const studioEl = ref<HTMLElement | null>(null)
 const error = ref<string | null>(null)
 let root: Root | null = null
 
-onMounted(() => {
+onMounted(async () => {
   const { projectId, dataset } = useRuntimeConfig().public.sanity
   if (!projectId) {
     error.value =
@@ -24,18 +24,31 @@ onMounted(() => {
     return
   }
 
-  const config = defineConfig({
-    name: 'embedded',
-    title: 'Afrodidact Deployments',
-    projectId,
-    dataset: dataset || 'production',
-    basePath: '/studio',
-    plugins: [structureTool(), visionTool()],
-    schema: { types: schemaTypes },
-  })
+  // Under <Suspense> (Nuxt pages) the template ref isn't populated on the
+  // first mount flush — wait a tick so the container element exists.
+  await nextTick()
+  if (!studioEl.value) {
+    error.value = 'Studio container not ready.'
+    return
+  }
 
-  root = createRoot(studioEl.value!)
-  root.render(createElement(Studio, { config }))
+  try {
+    const config = defineConfig({
+      name: 'embedded',
+      title: 'Afrodidact Deployments',
+      projectId,
+      dataset: dataset || 'production',
+      basePath: '/studio',
+      plugins: [structureTool(), visionTool()],
+      schema: { types: schemaTypes },
+    })
+
+    root = createRoot(studioEl.value)
+    root.render(createElement(Studio, { config }))
+  } catch (err: any) {
+    console.error('[StudioEmbed] mount failed:', err)
+    error.value = `Studio failed to mount: ${err?.message || err}`
+  }
 })
 
 onBeforeUnmount(() => {
