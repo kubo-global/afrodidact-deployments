@@ -92,8 +92,8 @@ const showOverview = (animate = true) => {
   schools.forEach((s: School) => bounds.extend([s.longitude, s.latitude]));
   const isMobile = window.innerWidth <= 768;
   map.fitBounds(bounds, {
-    padding: isMobile ? 50 : 100,
-    maxZoom: 6,
+    padding: isMobile ? 90 : 180,
+    maxZoom: 5,
     duration: animate ? 1200 : 0,
   });
 };

@@ -20,6 +20,12 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'country',
+      title: 'Country',
+      description: 'Used to group schools by country.',
+      type: 'string',
+    }),
+    defineField({
       name: 'location',
       title: 'Location',
       description: 'Pin location on the map.',
@@ -53,16 +59,24 @@ export default defineType({
       validation: (rule) => rule.min(0),
     }),
     defineField({
+      name: 'numberOfStaff',
+      title: 'Staff using the lab',
+      type: 'number',
+      validation: (rule) => rule.min(0),
+    }),
+    defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
       rows: 4,
     }),
     defineField({
-      name: 'image',
-      title: 'Class photo',
-      type: 'image',
-      options: { hotspot: true },
+      name: 'images',
+      title: 'Photos',
+      description: 'Class / installation photos. The first is shown first.',
+      type: 'array',
+      of: [{ type: 'image', options: { hotspot: true } }],
+      options: { layout: 'grid' },
     }),
     defineField({
       name: 'order',
