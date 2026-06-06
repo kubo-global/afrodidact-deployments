@@ -19,8 +19,8 @@
       </button>
     </div>
 
-    <div class="grid grid-cols-2 gap-3">
-      <div class="rounded-xl bg-afrodidactDark/5 p-3">
+    <div class="flex flex-wrap gap-3">
+      <div class="min-w-[7rem] flex-1 rounded-xl bg-afrodidactDark/5 p-3">
         <div id="school-number-of-students" class="text-2xl font-bold">
           {{ numberOfStudents }}
         </div>
@@ -28,7 +28,15 @@
           Pupils
         </div>
       </div>
-      <div class="rounded-xl bg-afrodidactDark/5 p-3">
+      <div v-if="numberOfStaff" class="min-w-[7rem] flex-1 rounded-xl bg-afrodidactDark/5 p-3">
+        <div id="school-number-of-staff" class="text-2xl font-bold">
+          {{ numberOfStaff }}
+        </div>
+        <div class="text-xs font-medium uppercase tracking-wide text-afrodidactDark/60">
+          Staff
+        </div>
+      </div>
+      <div class="min-w-[7rem] flex-1 rounded-xl bg-afrodidactDark/5 p-3">
         <div id="school-number-of-clients" class="text-2xl font-bold">
           {{ numberOfClients }}
         </div>
@@ -47,11 +55,9 @@
       </p>
     </div>
 
-    <Image
-      v-if="classImage"
-      :src="classImage"
-      class="mt-auto"
-    />
+    <div v-if="images && images.length" class="mt-auto flex flex-col gap-2">
+      <Image v-for="(img, i) in images" :key="i" :src="img" />
+    </div>
   </div>
 </template>
 
@@ -62,9 +68,10 @@ import Image from "./Image.vue";
 export default defineComponent({
   setup() {
     const instance = getCurrentInstance();
-    const classImage = ref(null);
+    const images = ref([]);
     const numberOfStudents = ref(null);
     const numberOfClients = ref(null);
+    const numberOfStaff = ref(null);
     const schoolDescription = ref(null);
     const schoolName = ref(null);
 
@@ -73,18 +80,20 @@ export default defineComponent({
     };
 
     const updateSidebar = (school) => {
-        classImage.value = school.classImage;
+        images.value = school.images || [];
         numberOfStudents.value = school.numberOfStudents;
         numberOfClients.value = school.numberOfClients;
+        numberOfStaff.value = school.numberOfStaff;
         schoolDescription.value = school.schoolDescription;
         schoolName.value = school.name;
     }
 
     return {
-    classImage,
+      images,
       handleCloseClick,
       numberOfClients,
       numberOfStudents,
+      numberOfStaff,
       Image,
       schoolDescription,
       schoolName,

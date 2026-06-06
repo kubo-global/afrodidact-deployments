@@ -2,19 +2,21 @@ import { defineStore } from 'pinia'
 import { createClient } from '@sanity/client'
 
 // GROQ query — maps Sanity `school` documents onto the shape the UI expects.
-// `classImage` resolves to a full asset URL (the bundled fallback uses local
-// /img paths), so the Sidebar can use it directly as an <img src>.
+// `images` resolves to full asset URLs (the bundled fallback uses local /img
+// paths), so the Sidebar can use them directly as <img src>.
 const SCHOOLS_QUERY = `*[_type == "school"] | order(order asc, name asc){
   "name": name,
   "schoolName": fullName,
+  country,
   "longitude": location.lng,
   "latitude": location.lat,
   zoom,
   zoomMobile,
   numberOfStudents,
   numberOfClients,
+  numberOfStaff,
   "schoolDescription": description,
-  "classImage": image.asset->url
+  "images": images[].asset->url
 }`
 
 // Bundled fallback so the map keeps working before Sanity is connected.
@@ -29,7 +31,8 @@ const fallbackSchools = [
     numberOfStudents: 225,
     numberOfClients: 25,
     schoolDescription: "Afrodidact Model School.",
-    classImage: "/img/theswallow.jpg",
+    country: "The Gambia",
+    images: ["/img/theswallow.jpg"],
   },
   {
     name: "Bakoteh Proper LBS",
@@ -42,7 +45,8 @@ const fallbackSchools = [
     numberOfClients: 51,
     schoolDescription:
       "The biggest lower basic school in The Gambia with +/- 3000 pupils. 6 grades, up to 12 classes/grade - 115 teachers. Solar installation installed. Funded by Rotary Grant 2016052 (RC Banjul, RC Beveren-Waas, ...), Energy Assistance & Intix. ",
-    classImage: "/img/bakotehproper.jpg",
+    country: "The Gambia",
+    images: ["/img/bakotehproper.jpg"],
   },
   {
     name: "Albreda LBS",
@@ -55,7 +59,8 @@ const fallbackSchools = [
     numberOfClients: 26,
     schoolDescription:
       "The lower basic school of Albreda is located in the Northbank. It has 381 pupils + 91 toddlers (Early Childhood Development). There are 6 grades with 2 classes/grade, and 12 teachers. Solar installation installed. Funded by Rotary Grant 2016052 (RC Banjul, RC Beveren-Waas, ...), Energy Assistance & Intix.",
-    classImage: "/img/albreda.jpg",
+    country: "The Gambia",
+    images: ["/img/albreda.jpg"],
   },
   {
     name: "Njaba Kunda LBS",
@@ -68,7 +73,8 @@ const fallbackSchools = [
     numberOfClients: 26,
     schoolDescription:
       "406 pupils + 36 toddlers ECD - 6 grades, 2 classes/grade (gr2:3) - 13 teachers. Solar installation installed. Funded by Rotary Grant 2016052 (RC Banjul, RC Beveren-Waas, ...), Energy Assistance & Intix..",
-    classImage: "/img/njabakunda.jpg",
+    country: "The Gambia",
+    images: ["/img/njabakunda.jpg"],
   },
 ]
 
