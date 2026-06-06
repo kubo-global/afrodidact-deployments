@@ -52,7 +52,7 @@ const mapComponent = ref(null);
 const sidebarComponent = ref(null);
 
 const handleOverviewClick = () =>  {
-  mapComponent.value.zoomToCountry();
+  mapComponent.value.showOverview();
   const sidebar = sidebarComponent.value.$el;
   sidebar.style.display = "none";
   mapComponent.value.resize();

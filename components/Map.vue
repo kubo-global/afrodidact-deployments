@@ -33,9 +33,9 @@ onUnmounted(() => {
 });
 
 const setupMap = () => {
-  zoomToCountry();
   map.addControl(new mapboxgl.NavigationControl());
   props.schools.forEach(addMarkerToMap);
+  showOverview(false);
 };
 
 
@@ -80,12 +80,24 @@ const handleLocationButtonClick = (school: School) => {
   instance?.emit("schoolClick", school);
 };
 
-const zoomToCountry = () => {
-  const isMobile = window.innerWidth <= 768; 
-  const zoomLevel = isMobile ? 5 : 7.5;
-  map.flyTo({ center: [-15.3973, 13.4591], zoom: zoomLevel });
+// Frame all school markers (auto-adapts as deployments span more countries).
+// Falls back to a continental Africa view when there are no schools yet.
+const showOverview = (animate = true) => {
+  const schools = props.schools ?? [];
+  if (!schools.length) {
+    map[animate ? "flyTo" : "jumpTo"]({ center: [20.63, 2.16], zoom: 2.4 });
+    return;
+  }
+  const bounds = new mapboxgl.LngLatBounds();
+  schools.forEach((s: School) => bounds.extend([s.longitude, s.latitude]));
+  const isMobile = window.innerWidth <= 768;
+  map.fitBounds(bounds, {
+    padding: isMobile ? 50 : 100,
+    maxZoom: 6,
+    duration: animate ? 1200 : 0,
+  });
 };
 
-defineExpose({ flyTo, resize, zoomToCountry });
+defineExpose({ flyTo, resize, showOverview });
 
 </script>
