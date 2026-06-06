@@ -19,20 +19,24 @@ managed in [Sanity](https://www.sanity.io). The project is **already set up**
 Sanity is ever unreachable the app falls back to the bundled list in
 `stores/schools.ts`, so it always renders.
 
-The editing **Studio is embedded at `/studio`** (e.g. http://localhost:3000/studio).
-
-### Editing content
-
-1. Open `/studio` while logged into Sanity (you must be a member of the project).
-2. First visit only: Sanity shows **"Connect this studio to your project"** —
-   click **Register this studio** (production / editor-facing) or **Add development
-   host** (localhost). One-time per host.
-3. Edit schools; changes appear on the map on next load.
+The **Studio is hosted by Sanity** at
+**https://afrodidact-deployments.sanity.studio** — open it (logged into Sanity,
+as a project member) to edit schools. Changes appear on the map on next load.
 
 The `projectId` is public and defaulted in `nuxt.config.ts`, so no env config is
 needed to *read* content. To point at a different project/dataset, set
 `SANITY_STUDIO_PROJECT_ID` / `SANITY_STUDIO_DATASET` (shared with the Sanity CLI;
 see `.env.example`).
+
+### Deploying the Studio
+
+The Studio config lives in `sanity.config.ts` / `sanity.cli.ts` and the schema in
+`sanity/schemaTypes/`. To publish changes to the hosted Studio:
+
+```bash
+npm run studio:deploy      # sanity deploy -> *.sanity.studio
+npm run studio:dev         # run the Studio locally
+```
 
 ### Re-importing / seeding (already done once)
 
