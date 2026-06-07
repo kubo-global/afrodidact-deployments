@@ -20,6 +20,7 @@
       <Menu
         class="min-w-0"
         @overview-click="handleOverviewClick"
+        @country-click="handleCountryClick"
         @school-click="handleSchoolClick"
       />
     </header>
@@ -53,6 +54,13 @@ const sidebarComponent = ref(null);
 
 const handleOverviewClick = () =>  {
   mapComponent.value.showOverview();
+  const sidebar = sidebarComponent.value.$el;
+  sidebar.style.display = "none";
+  mapComponent.value.resize();
+};
+
+const handleCountryClick = (country) =>  {
+  mapComponent.value.fitCountry(country);
   const sidebar = sidebarComponent.value.$el;
   sidebar.style.display = "none";
   mapComponent.value.resize();
