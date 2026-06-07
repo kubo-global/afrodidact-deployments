@@ -98,6 +98,22 @@ const showOverview = (animate = true) => {
   });
 };
 
-defineExpose({ flyTo, resize, showOverview });
+// Frame the schools of a single country.
+const fitCountry = (country: string) => {
+  const schools = (props.schools ?? []).filter(
+    (s: School) => (s.country || "Other") === country,
+  );
+  if (!schools.length) return;
+  const bounds = new mapboxgl.LngLatBounds();
+  schools.forEach((s: School) => bounds.extend([s.longitude, s.latitude]));
+  const isMobile = window.innerWidth <= 768;
+  map.fitBounds(bounds, {
+    padding: isMobile ? 60 : 120,
+    maxZoom: 7,
+    duration: 1200,
+  });
+};
+
+defineExpose({ flyTo, resize, showOverview, fitCountry });
 
 </script>

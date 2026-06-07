@@ -1,13 +1,14 @@
 export interface School {
     name: string;
+    schoolName: string;
+    country?: string;
     longitude: number;
     latitude: number;
     zoom: number;
     zoomMobile: number;
-    schoolName: string;
-    numberOfStudents: number;
-    numberOfClients: number;
-    schoolDescription: string;
-    classImage: string;
+    numberOfStudents?: number;
+    numberOfClients?: number;
+    numberOfStaff?: number;
+    schoolDescription?: string;
+    images?: string[];
   }
-  
