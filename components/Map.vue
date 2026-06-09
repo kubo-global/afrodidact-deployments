@@ -3,7 +3,7 @@
 </template>
   
   <script setup lang="ts">
-import { onMounted, onUnmounted, ref, getCurrentInstance } from "vue";
+import { onMounted, onUnmounted, ref, watch, getCurrentInstance } from "vue";
 import mapboxgl, { LngLatLike } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { School } from "@/types/school";
@@ -32,11 +32,27 @@ onUnmounted(() => {
   map?.remove();
 });
 
+let markers: mapboxgl.Marker[] = [];
+
+const renderMarkers = () => {
+  markers.forEach((m) => m.remove());
+  markers = (props.schools ?? []).map(addMarkerToMap);
+};
+
 const setupMap = () => {
   map.addControl(new mapboxgl.NavigationControl());
-  props.schools.forEach(addMarkerToMap);
+  renderMarkers();
   showOverview(false);
 };
+
+// Background data refresh (e.g. a school added in Sanity) updates markers in
+// place without disturbing the current view.
+watch(
+  () => props.schools,
+  () => {
+    if (map) renderMarkers();
+  },
+);
 
 
 const flyTo = (school: School) => {
@@ -70,9 +86,10 @@ const addMarkerToMap = (school: School) => {
     .addTo(map);
 
   marker.getElement().addEventListener("click", () => {
-    console.log(school);
     handleLocationButtonClick(school);
   });
+
+  return marker;
 };
 
 const handleLocationButtonClick = (school: School) => {

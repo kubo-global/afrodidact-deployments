@@ -44,10 +44,19 @@
 <script setup>
 import { useSchoolsStore } from "~/stores/schools";
 import { storeToRefs } from "pinia";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 const schoolsStore = useSchoolsStore();
-await schoolsStore.fetchSchools();
+// Fetch at prerender so the data is baked into the page + Pinia payload. On the
+// client the store hydrates from that payload, so we don't block the map's
+// first paint on a network round-trip — just refresh in the background to pick
+// up any newer Sanity content (markers update reactively).
+if (import.meta.server) {
+  await schoolsStore.fetchSchools();
+}
+onMounted(() => {
+  schoolsStore.fetchSchools();
+});
 const { schools } = storeToRefs(schoolsStore);
 const mapComponent = ref(null);
 const sidebarComponent = ref(null);
