@@ -20,6 +20,11 @@ export default defineNuxtConfig({
         link: [
           { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
           { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+          // Open connections early so Mapbox style/tiles and Sanity images
+          // start downloading sooner (they're the bulk of initial load).
+          { rel: 'preconnect', href: 'https://api.mapbox.com', crossorigin: '' },
+          { rel: 'preconnect', href: 'https://events.mapbox.com', crossorigin: '' },
+          { rel: 'preconnect', href: 'https://cdn.sanity.io', crossorigin: '' },
           {
             rel: 'stylesheet',
             href: 'https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap',
