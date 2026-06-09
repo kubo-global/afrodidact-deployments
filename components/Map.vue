@@ -42,7 +42,8 @@ const renderMarkers = () => {
 const setupMap = () => {
   map.addControl(new mapboxgl.NavigationControl());
   renderMarkers();
-  showOverview(false);
+  // Animate the initial zoom-in from the far-out start to frame all markers.
+  showOverview(true);
 };
 
 // Background data refresh (e.g. a school added in Sanity) updates markers in
